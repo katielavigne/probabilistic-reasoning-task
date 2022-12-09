@@ -1,0 +1,676 @@
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+#### setting up constants and arrays
+
+int max_rt=2500;
+int rt=0;
+
+int xoffleft=-80;
+int xoffright=80;
+
+int numpos=30; # number of fish positions in one lake
+int numpicparts_startingdisplay=3; # grey box frame and two lakes
+
+# fish colours (for one lake); 0=black, 1=white
+array<int>fishcolours_black80percent_white20percent[numpos]={ # 24 vs 6 = 80% vs 20%
+0,0,0,0,0,0,   0,0,0,0,0,0,   0,0,0,0,0,0,   0,0,0,0,0,0,   1,1,1,1,1,1};
+array<int>fishcolours_white80percent_black20percent[numpos]={ # 24 vs 6 = 80% vs 20%
+1,1,1,1,1,1,   1,1,1,1,1,1,   1,1,1,1,1,1,   1,1,1,1,1,1,   0,0,0,0,0,0};
+
+array<int>fishcolours_black90percent_white10percent[numpos]={ # 27 vs 3 = 90% vs 10%
+0,0,0,0,0,0,   0,0,0,0,0,0,   0,0,0,0,0,0,   0,0,0,0,0,0,   0,0,0,   1,1,1};
+array<int>fishcolours_white90percent_black10percent[numpos]={ # 27 vs 3 = 90% vs 10%
+1,1,1,1,1,1,   1,1,1,1,1,1,   1,1,1,1,1,1,   1,1,1,1,1,1,   1,1,1,   0,0,0};
+
+
+array<int>left_lake_positions[numpos][2]={ #{x,y} for each fish
+{-110,47}, {-97,56}, {-80,62}, {-63,56}, {-50,47},
+{-118,30}, {-97,33}, {-80,40},  {-63,33}, {-42,30},
+{-122,10}, {-100,10}, {-80,14},  {-60,10}, {-38,10},
+{-122,-10},{-100,-10},{-80,-14}, {-60,-10},{-38,-10},
+{-118,-30},{-97,-33},{-80,-40},  {-63,-33},{-42,-30},
+{-110,-47},{-97,-56},{-80,-62}, {-63,-56},{-50,-47}
+};
+
+array<int>right_lake_positions[numpos][2]={
+{50,47}, {63,56}, {80,62}, {97,56}, {110,47},
+{42,30}, {63,33}, {80,40}, {97,33}, {118,30},
+{38,10}, {60,10}, {80,14}, {100,10}, {122,10},
+{38,-10},{60,-10},{80,-14}, {100,-10},{122,-10},
+{42,-30},{63,-33},{80,-40}, {97,-33},{118,-30},
+{50,-47},{63,-56},{80,-62}, {97,-56},{110,-47}
+};
+
+int numtrialspercondandside=15; 
+int numtrialsinrun=numtrialspercondandside*8; # 4 levels for evidence strength x 2 for focal lake being in left vs right visual field
+
+#############################################################################################################
+
+# array of all the ITIs for one condition & focal lake side (left vs right visual field)
+
+array<int>iti_array[15];
+loop int i=1  until i > 7 begin iti_array[i]=2000; i=i+1; end; # ITI 2 seconds
+loop int i=8  until i > 11 begin iti_array[i]=4000; i=i+1; end; # ITI 4 seconds
+loop int i=12 until i > 13 begin iti_array[i]=6000; i=i+1; end; # ITI 6 seconds
+loop int i=14 until i > 15 begin iti_array[i]=8000; i=i+1; end; # ITI 8 seconds
+
+################################################################################
+# column 1: focal lake in left (0) vs right (1) visual field 
+# column 2: percent fish of relevant colour in focal lake
+# column 3: percent fish of relevant colour in alternate lake
+# column 4: ITI
+array<int>trial_array[numtrialsinrun][4]; # easy to adjust if numtrialspercondandside changes
+
+iti_array.shuffle();
+loop int i=1 until i > numtrialspercondandside begin
+	trial_array[i][1]=0;   trial_array[i][2]=80;   trial_array[i][3]=10;    
+	trial_array[i][4]=iti_array[i];    i=i+1; 
+end;
+
+iti_array.shuffle();
+loop int i=numtrialspercondandside+1 until i > numtrialspercondandside*2 begin
+	trial_array[i][1]=0;   trial_array[i][2]=20;   trial_array[i][3]=10;
+	trial_array[i][4]=iti_array[i-numtrialspercondandside];    i=i+1; 
+end;
+
+iti_array.shuffle();
+loop int i=numtrialspercondandside*2+1 until i > numtrialspercondandside*3 begin
+	trial_array[i][1]=0;   trial_array[i][2]=80;   trial_array[i][3]=90;
+	trial_array[i][4]=iti_array[i-numtrialspercondandside*2];    i=i+1;
+end;
+
+iti_array.shuffle();
+loop int i=numtrialspercondandside*3+1 until i > numtrialspercondandside*4 begin
+	trial_array[i][1]=0;   trial_array[i][2]=20;   trial_array[i][3]=90;
+	trial_array[i][4]=iti_array[i-numtrialspercondandside*3];    i=i+1;
+end;
+
+iti_array.shuffle();
+loop int i=numtrialspercondandside*4+1 until i > numtrialspercondandside*5 begin
+	trial_array[i][1]=1;   trial_array[i][2]=80;   trial_array[i][3]=10;
+	trial_array[i][4]=iti_array[i-numtrialspercondandside*4];    i=i+1;
+end;
+
+iti_array.shuffle();
+loop int i=numtrialspercondandside*5+1 until i > numtrialspercondandside*6 begin
+	trial_array[i][1]=1;   trial_array[i][2]=20;   trial_array[i][3]=10;
+	trial_array[i][4]=iti_array[i-numtrialspercondandside*5];    i=i+1;
+end;
+
+iti_array.shuffle();
+loop int i=numtrialspercondandside*6+1 until i > numtrialspercondandside*7 begin
+	trial_array[i][1]=1;   trial_array[i][2]=80;   trial_array[i][3]=90;
+	trial_array[i][4]=iti_array[i-numtrialspercondandside*6];    i=i+1;
+end;
+
+iti_array.shuffle();
+loop int i=numtrialspercondandside*7+1 until i > numtrialspercondandside*8 begin
+	trial_array[i][1]=1;   trial_array[i][2]=20;   trial_array[i][3]=90;
+	trial_array[i][4]=iti_array[i-numtrialspercondandside*7];    i=i+1;
+end;
+
+trial_array.shuffle();
+
+
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+
+
+##########################################################################################################
+##########################################################################################################
+##########################################################################################################
+
+sub get_button_response_sub begin
+
+################### initialize mouse and cursor position
+
+
+############################################################
+
+int ratingdone=0; # has a value of 0 if mouse hasn't been clicked, 1 if it has been clicked
+int lastresp;
+int new_response_count;
+int old_response_count=0;
+int respondedyet=0; # 0 for no, 1 for yes
+
+int rt_start=clock.time();
+
+rt=0;
+ratingdone=0;
+lastresp=0;
+	
+	loop rt = 0 until respondedyet > 0 begin #>= max_rt begin
+		
+		old_response_count=response_manager.response_data_count( );
+		display_trial.present();
+		lastresp=response_manager.last_response();
+		new_response_count=response_manager.response_data_count( );
+		
+		if (lastresp==1 && new_response_count > old_response_count)then
+			display_pic.set_part(66,blacksquare_box);
+			display_pic.set_part(68,greysquare_box);
+			respondedyet=1;
+		elseif (lastresp==2 && new_response_count > old_response_count)then
+			display_pic.set_part(68,blacksquare_box);
+			display_pic.set_part(66,greysquare_box);
+			respondedyet=1;
+		end;
+	
+	int rt_end=clock.time();
+	rt=rt_end-rt_start;
+						
+	end; # end loop
+				 
+    
+end; # end button response subroutine
+
+#############################################################################################
+#############################################################################################
+#############################################################################################
+
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+#### experiment starts running here
+
+
+instructions_trial.present();
+start_trial.present(); # waits for the code from the scanner
+
+loop int trl=1 until trl > numtrialsinrun begin
+
+# 1000 ms jitter width with 'rectangular' (even) distribution, so that timing is optimized for ERP analyses
+#int ITI=trial_array[trl][4];
+int ITI=random(1000,1500); # just for piloting & programming
+ITI_event.set_duration(ITI);
+#display_event.set_deltat(ITI);
+
+int currentportcode=100*trial_array[trl][1]+trial_array[trl][2]+trial_array[trl][3]; # should always be between 0 and 255
+# for example, left lake is focal, focal has 90% alt has 80% would be 0*100+90+(80/10)=98.
+# right lake is focal, focal has 90% alt has 80% would be 1*100+90+(80/10)=198.
+# right lake is focal, focal has 20% alt has 10% would be 1*100+20+(10/10)=121.
+
+#display_event.set_port_code(currentportcode); # uncomment once we get access to the facilities and can set up hardware
+#########################################################################################
+#### jittering fish positions a bit so it's not a perfect grid that's the same each trial
+
+# the index of the first picture part to have its position set in the loop below is this plus 1
+int left_picpart_start=numpicparts_startingdisplay; 
+int right_picpart_start=numpos+numpicparts_startingdisplay;
+
+loop int leftfish=1 until leftfish > numpos begin
+	int xjitter=random(-2,2);
+	int yjitter=random(-2,2);
+	display_pic.set_part_x(left_picpart_start+leftfish,left_lake_positions[leftfish][1]+xjitter);
+	display_pic.set_part_y(left_picpart_start+leftfish,left_lake_positions[leftfish][2]+yjitter);
+	leftfish=leftfish+1;
+end;
+
+loop int rightfish=1 until rightfish > numpos begin
+	int xjitter=random(-3,3);
+	int yjitter=random(-3,3);
+	display_pic.set_part_x(right_picpart_start+rightfish,right_lake_positions[rightfish][1]+xjitter);
+	display_pic.set_part_y(right_picpart_start+rightfish,right_lake_positions[rightfish][2]+yjitter);
+	rightfish=rightfish+1;
+end;
+
+################################################################################################################
+#### so that, within a given lake, the locations of fish of the relevant colour and filler colour will be random
+fishcolours_white80percent_black20percent.shuffle();
+fishcolours_black80percent_white20percent.shuffle();
+fishcolours_white90percent_black10percent.shuffle();
+fishcolours_black90percent_white10percent.shuffle();
+
+################################################################################################################
+
+#int relevant_colour=random(0,1); # 0=black fish, 1=white fish
+int relevant_colour=0;
+
+if relevant_colour==0 then
+	display_pic.set_part(numpicparts_startingdisplay+numpos*2+1,bmp_blackfish_fixn); # fixn is last part of display_pic
+elseif relevant_colour==1 then
+	display_pic.set_part(numpicparts_startingdisplay+numpos*2+1,bmp_whitefish_fixn);
+end;
+
+#############################################################################################################
+#############################################################################################################
+############################################################################################################# 
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#### big huge if statement for setting up most of the display features for the current trial
+
+#### 80% in focal, 10% in alt
+int focal_colour=random(0,1);
+
+if focal_colour==0 then
+	if trial_array[trl][1]==0 then
+		display_pic.set_part(numpicparts_startingdisplay+numpos*2+1,bmp_blackfishpointingleft_fixn);
+	elseif trial_array[trl][1]==1 then
+		display_pic.set_part(numpicparts_startingdisplay+numpos*2+1,bmp_blackfishpointingright_fixn);
+	end;
+elseif focal_colour==1 then
+	if trial_array[trl][1]==0 then
+		display_pic.set_part(numpicparts_startingdisplay+numpos*2+1,bmp_whitefishpointingleft_fixn);
+	elseif trial_array[trl][1]==1 then
+		display_pic.set_part(numpicparts_startingdisplay+numpos*2+1,bmp_whitefishpointingright_fixn);
+	end;
+end;
+
+
+	# 0=left lake is focal, 0=black fish relevant, 80% in focal lake, 10% in alt lake
+	if trial_array[trl][1]==0 && relevant_colour==0 && trial_array[trl][2]==80 && trial_array[trl][3]==10 then
+		display_pic.set_part_x(2,xoffleft);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffright); # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is focal, green
+			if fishcolours_black80percent_white20percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_greenlake);
+			elseif fishcolours_black80percent_white20percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_greenlake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is alt, blue
+			if fishcolours_white90percent_black10percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_bluelake);
+			elseif fishcolours_white90percent_black10percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_bluelake);
+			end;
+			rightfish=rightfish+1;
+		end;
+		
+	# 1=right lake is focal, 0=black fish relevant, 80% in focal lake, 10% in alt lake
+	elseif trial_array[trl][1]==1 && relevant_colour==0 && trial_array[trl][2]==80 && trial_array[trl][3]==10 then
+		display_pic.set_part_x(2,xoffright);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffleft);   # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is alt, blue
+			if fishcolours_white90percent_black10percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_bluelake);
+			elseif fishcolours_white90percent_black10percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_bluelake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is focal, green
+			if fishcolours_black80percent_white20percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_greenlake);
+			elseif fishcolours_black80percent_white20percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_greenlake);
+			end;
+			rightfish=rightfish+1;
+		end;
+	
+	# 0=left lake is focal, 1=white fish relevant, 80% in focal lake, 10% in alt lake
+	elseif trial_array[trl][1]==0 && relevant_colour==1 && trial_array[trl][2]==80 && trial_array[trl][3]==10 then
+		display_pic.set_part_x(2,xoffleft);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffright); # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is focal, green
+			if fishcolours_white80percent_black20percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_greenlake);
+			elseif fishcolours_white80percent_black20percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_greenlake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is alt, blue
+			if fishcolours_black90percent_white10percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_bluelake);
+			elseif fishcolours_black90percent_white10percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_bluelake);
+			end;
+			rightfish=rightfish+1;
+		end;
+		
+	# 1=right lake is focal, 1=white fish relevant, 80% in focal lake, 10% in alt lake
+	elseif trial_array[trl][1]==1 && relevant_colour==1 && trial_array[trl][2]==80 && trial_array[trl][3]==10 then
+		display_pic.set_part_x(2,xoffright);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffleft);   # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is alt, blue
+			if fishcolours_black90percent_white10percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_bluelake);
+			elseif fishcolours_black90percent_white10percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_bluelake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is focal, green
+			if fishcolours_white80percent_black20percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_greenlake);
+			elseif fishcolours_white80percent_black20percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_greenlake);
+			end;
+			rightfish=rightfish+1;
+		end;
+
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+#### 20% in focal, 10% in alt
+
+	# 0=left lake is focal, 0=black fish relevant, 20% in focal lake, 10% in alt lake
+	elseif trial_array[trl][1]==0 && relevant_colour==0 && trial_array[trl][2]==20 && trial_array[trl][3]==10 then
+		display_pic.set_part_x(2,xoffleft);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffright); # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is focal, green
+			if fishcolours_white80percent_black20percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_greenlake);
+			elseif fishcolours_white80percent_black20percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_greenlake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is alt, blue
+			if fishcolours_white90percent_black10percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_bluelake);
+			elseif fishcolours_white90percent_black10percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_bluelake);
+			end;
+			rightfish=rightfish+1;
+		end;
+		
+	# 1=right lake is focal, 0=black fish relevant, 20% in focal lake, 10% in alt lake
+	elseif trial_array[trl][1]==1 && relevant_colour==0 && trial_array[trl][2]==20 && trial_array[trl][3]==10 then
+		display_pic.set_part_x(2,xoffright);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffleft);   # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is alt, blue
+			if fishcolours_white90percent_black10percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_bluelake);
+			elseif fishcolours_white90percent_black10percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_bluelake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is focal, green
+			if fishcolours_white80percent_black20percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_greenlake);
+			elseif fishcolours_white80percent_black20percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_greenlake);
+			end;
+			rightfish=rightfish+1;
+		end;
+	
+	# 0=left lake is focal, 1=white fish relevant, 20% in focal lake, 10% in alt lake
+	elseif trial_array[trl][1]==0 && relevant_colour==1 && trial_array[trl][2]==20 && trial_array[trl][3]==10 then
+		display_pic.set_part_x(2,xoffleft);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffright); # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is focal, green
+			if fishcolours_black80percent_white20percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_greenlake);
+			elseif fishcolours_black80percent_white20percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_greenlake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is alt, blue
+			if fishcolours_black90percent_white10percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_bluelake);
+			elseif fishcolours_black90percent_white10percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_bluelake);
+			end;
+			rightfish=rightfish+1;
+		end;
+		
+	# 1=right lake is focal, 1=white fish relevant, 20% in focal lake, 10% in alt lake
+	elseif trial_array[trl][1]==1 && relevant_colour==1 && trial_array[trl][2]==20 && trial_array[trl][3]==10 then
+		display_pic.set_part_x(2,xoffright);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffleft);   # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is alt, blue
+			if fishcolours_black90percent_white10percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_bluelake);
+			elseif fishcolours_black90percent_white10percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_bluelake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is focal, green
+			if fishcolours_black80percent_white20percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_greenlake);
+			elseif fishcolours_black80percent_white20percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_greenlake);
+			end;
+			rightfish=rightfish+1;
+		end;
+		
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+#### 80% in focal, 90% in alt
+
+	# 0=left lake is focal, 0=black fish relevant, 80% in focal lake, 90% in alt lake
+	elseif trial_array[trl][1]==0 && relevant_colour==0 && trial_array[trl][2]==80 && trial_array[trl][3]==90 then
+		display_pic.set_part_x(2,xoffleft);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffright); # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is focal, green
+			if fishcolours_black80percent_white20percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_greenlake);
+			elseif fishcolours_black80percent_white20percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_greenlake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is alt, blue
+			if fishcolours_black90percent_white10percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_bluelake);
+			elseif fishcolours_black90percent_white10percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_bluelake);
+			end;
+			rightfish=rightfish+1;
+		end;
+		
+	# 1=right lake is focal, 0=black fish relevant, 80% in focal lake, 90% in alt lake
+	elseif trial_array[trl][1]==1 && relevant_colour==0 && trial_array[trl][2]==80 && trial_array[trl][3]==90 then
+		display_pic.set_part_x(2,xoffright);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffleft);   # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is alt, blue
+			if fishcolours_black90percent_white10percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_bluelake);
+			elseif fishcolours_black90percent_white10percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_bluelake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is focal, green
+			if fishcolours_black80percent_white20percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_greenlake);
+			elseif fishcolours_black80percent_white20percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_greenlake);
+			end;
+			rightfish=rightfish+1;
+		end;
+	
+	# 0=left lake is focal, 1=white fish relevant, 80% in focal lake, 90% in alt lake
+	elseif trial_array[trl][1]==0 && relevant_colour==1 && trial_array[trl][2]==80 && trial_array[trl][3]==90 then
+		display_pic.set_part_x(2,xoffleft);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffright); # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is focal, green
+			if fishcolours_white80percent_black20percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_greenlake);
+			elseif fishcolours_white80percent_black20percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_greenlake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is alt, blue
+			if fishcolours_white90percent_black10percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_bluelake);
+			elseif fishcolours_white90percent_black10percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_bluelake);
+			end;
+			rightfish=rightfish+1;
+		end;
+		
+	# 1=right lake is focal, 1=white fish relevant, 80% in focal lake, 90% in alt lake
+	elseif trial_array[trl][1]==1 && relevant_colour==1 && trial_array[trl][2]==80 && trial_array[trl][3]==90 then
+		display_pic.set_part_x(2,xoffright);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffleft);   # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is alt, blue
+			if fishcolours_white90percent_black10percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_bluelake);
+			elseif fishcolours_white90percent_black10percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_bluelake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is focal, green
+			if fishcolours_white80percent_black20percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_greenlake);
+			elseif fishcolours_white80percent_black20percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_greenlake);
+			end;
+			rightfish=rightfish+1;
+		end;
+	
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+#### 20% in focal, 90% in alt
+
+	# 0=left lake is focal, 0=black fish relevant, 20% in focal lake, 90% in alt lake
+	elseif trial_array[trl][1]==0 && relevant_colour==0 && trial_array[trl][2]==20 && trial_array[trl][3]==90 then
+		display_pic.set_part_x(2,xoffleft);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffright); # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is focal, green
+			if fishcolours_white80percent_black20percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_greenlake);
+			elseif fishcolours_white80percent_black20percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_greenlake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is alt, blue
+			if fishcolours_black90percent_white10percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_bluelake);
+			elseif fishcolours_black90percent_white10percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_bluelake);
+			end;
+			rightfish=rightfish+1;
+		end;
+		
+	# 1=right lake is focal, 0=black fish relevant, 20% in focal lake, 90% in alt lake
+	elseif trial_array[trl][1]==1 && relevant_colour==0 && trial_array[trl][2]==20 && trial_array[trl][3]==90 then
+		display_pic.set_part_x(2,xoffright);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffleft);   # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is alt, blue
+			if fishcolours_black90percent_white10percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_bluelake);
+			elseif fishcolours_black90percent_white10percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_bluelake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is focal, green
+			if fishcolours_white80percent_black20percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_greenlake);
+			elseif fishcolours_white80percent_black20percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_greenlake);
+			end;
+			rightfish=rightfish+1;
+		end;
+	
+	# 0=left lake is focal, 1=white fish relevant, 20% in focal lake, 90% in alt lake
+	elseif trial_array[trl][1]==0 && relevant_colour==1 && trial_array[trl][2]==20 && trial_array[trl][3]==90 then
+		display_pic.set_part_x(2,xoffleft);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffright); # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is focal, green
+			if fishcolours_black80percent_white20percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_greenlake);
+			elseif fishcolours_black80percent_white20percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_greenlake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is alt, blue
+			if fishcolours_white90percent_black10percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_bluelake);
+			elseif fishcolours_white90percent_black10percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_bluelake);
+			end;
+			rightfish=rightfish+1;
+		end;
+		
+	# 1=right lake is focal, 1=white fish relevant, 20% in focal lake, 90% in alt lake
+	elseif trial_array[trl][1]==1 && relevant_colour==1 && trial_array[trl][2]==20 && trial_array[trl][3]==90 then
+		display_pic.set_part_x(2,xoffright);  # second picture part is green ellipse
+		display_pic.set_part_x(3,xoffleft);   # third picture part is blue ellipse
+	
+		loop int leftfish=1 until leftfish > numpos begin # left lake is alt, blue
+			if fishcolours_white90percent_black10percent[leftfish]==0 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_blackfish_bluelake);
+			elseif fishcolours_white90percent_black10percent[leftfish]==1 then
+				display_pic.set_part(left_picpart_start+leftfish,bmp_whitefish_bluelake);
+			end;
+			leftfish=leftfish+1;
+		end;
+
+		loop int rightfish=1 until rightfish > numpos begin # right lake is focal, green
+			if fishcolours_black80percent_white20percent[rightfish]==0 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_blackfish_greenlake);
+			elseif fishcolours_black80percent_white20percent[rightfish]==1 then
+				display_pic.set_part(right_picpart_start+rightfish,bmp_whitefish_greenlake);
+			end;
+			rightfish=rightfish+1;
+		end;
+		
+
+end; # end of if statement for setting up most of display features for the current trial
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+display_event.set_event_code(string(trial_array[trl][1])+"focalleftvsright_"+string(trial_array[trl][2])+"focallakeperc_"
++string(trial_array[trl][3])+"altlakeperc_"+string(trial_array[trl][4])+"iti_"+string(relevant_colour)+"relevantcolour");
+
+display_trial.present();
+#display_device.screenshot( "C:\\Users\\CNOSlab\\Desktop\\MCT\\UBC versions\\3 FISH\\practice\\FISHscreenshot1a.bmp" );
+get_button_response_sub();
+responseshown_trial.present();
+display_pic.set_part(66,greysquare_box);
+display_pic.set_part(68,greysquare_box);
+
+ITI_trial.present();
+trl=trl+1;
+
+end; # end of loop that goes through all the trials in the run
+
+end_trial.present();
