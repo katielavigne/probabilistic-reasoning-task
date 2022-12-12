@@ -49,12 +49,16 @@ Run this task using NBS Presentation.
 
 ## Procedure and Conditions
 
+This task includes several practice and experimental trials. Participants are asked whether the central fish came from the green lake. Practice trials provde different options for response times (to gradually become comfortable responding within 4 seconds). There are 4 conditions based on whether the central fish matched or did not match the green lake (Match/Non-Match) and whether the probabilities provided strong or weak evidence for the hypothesis.
+
 ## Output Files
 
 Log files are output to calculate event timing.
 
 ## Scoring
 
+- Accuracy
+- Reaction time
 
 ## Contributors
 
