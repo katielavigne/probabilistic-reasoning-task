@@ -10,7 +10,7 @@ Probabilistic reasoning task assessing jumping to conclusions using the fish par
 
 **Publication:**
 
-Fouladirad et al. (2022) Functional brain networks underlying probabilistic reasoning and delusions in schizophrenia. *Psy Res: Neuroimaging, 323*, 111472. doi: [[https://doi.org/10.1162/jocn_a_01726](https://doi.org/10.1016/j.pscychresns.2022.111472)]([https://doi.org/10.1162/jocn_a_01726](https://doi.org/10.1016/j.pscychresns.2022.111472))
+Fouladirad et al. (2022) Functional brain networks underlying probabilistic reasoning and delusions in schizophrenia. *Psy Res: Neuroimaging, 323*, 111472. doi: [https://doi.org/10.1016/j.pscychresns.2022.111472](https://doi.org/10.1016/j.pscychresns.2022.111472)
 
 
 **Function(s) assessed:** cognitive bias
