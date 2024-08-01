@@ -1,0 +1,569 @@
+{
+  "title": "Probabilistic Reasoning",
+  "description": "Probabilistic reasoning task assessing jumping to conclusions using the fish paradigm.",
+  "identifier": {
+    "identifier": "https://doi.org/10.17605/OSF.IO/4DGBY",
+    "identifierSource": "DOI"
+  },
+  "creators": [
+    {
+      "abbreviation": "",
+      "fullName": "Jennifer C Whitman",
+      "firstName": "Jennifer",
+      "middleInitial": "C",
+      "lastName": "Whitman",
+      "affiliations": [
+        {
+          "name": "University of British Columbia"
+        }
+      ],
+      "roles": [
+        {
+          "value": "Contributor"
+        }
+      ],
+      "extraProperties": [
+        {
+          "category": "ORCID",
+          "values": [
+            {
+              "value": "https://orcid.org/0000-0003-1666-9203"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fullName": "Todd S Woodward",
+      "firstName": "Todd",
+      "middleInitial": "S",
+      "lastName": "Woodward",
+      "affiliations": [
+        {
+          "name": "University of British Columbia"
+        }
+      ],
+      "roles": [
+        {
+          "value": "Principal Investigator"
+        }
+      ],
+      "extraProperties": [
+        {
+          "category": "ORCID",
+          "values": [
+            {
+              "value": "https://orcid.org/0000-0001-8083-0079"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fullName": "Christine Tipper",
+      "middleInitial": "",
+      "firstName": "Christine",
+      "lastName": "Tipper",
+      "affiliations": [
+        {
+          "name": "University of British Columbia"
+        }
+      ],
+      "roles": [
+        {
+          "value": "Contributor"
+        }
+      ],
+      "extraProperties": [
+        {
+          "category": "ORCID",
+          "values": [
+            {
+              "value": "https://orcid.org/0000-0003-1666-9203"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fullName": "Katie M Lavigne",
+      "firstName": "Katie",
+      "middleInitial": "M",
+      "lastName": "Lavigne",
+      "email": "katie.lavigne@mcgill.ca",
+      "affiliations": [
+        {
+          "name": "University of British Columbia"
+        }
+      ],
+      "roles": [
+        {
+          "value": "Contributor"
+        }
+      ],
+      "extraProperties": [
+        {
+          "category": "ORCID",
+          "values": [
+            {
+              "value": "https://orcid.org/0000-0002-3918-6918"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "information": {
+        "value": "Tabular data"
+      }
+    }
+  ],
+  "version": "1.0",
+  "privacy": "open",
+  "licenses": [
+    {
+      "name": "Academic Public License"
+    },
+    {
+      "name": "CC BY-NC-SA"
+    }
+  ],
+  "distributions": [
+    {
+      "formats": [
+        "LOG"
+      ],
+      "size": 5.16,
+      "unit": {
+        "value": "MB"
+      },
+      "access": {
+        "landingPage": "https://doi.org/10.17605/OSF.IO/4DGBY",
+        "authorizations": [
+          {
+            "value": "public"
+          }
+        ]
+      }
+    }
+  ],
+  "primaryPublications": [
+    {
+      "title": "Functional brain networks underlying probabilistic reasoning and delusions in schizophrenia",
+      "publicationVenue": "Psychiatry Research: Neuroimaging",
+      "authors": [
+        {
+          "fullName": "Saman Fouladirad",
+          "firstName": "Saman",
+          "middleInitial": "",
+          "lastName": "Fouladirad",
+          "affiliations": [
+            {
+              "name": "BC Mental Health and Substance Use Services, Vancouver, BC, Canada"
+            },
+            {
+              "name": "Faculty of Medicine, University of British Columbia, Vancouver, BC, Canada"
+            }
+          ]
+        },
+        {
+          "fullName": "Linda V Chen",
+          "firstName": "Linda",
+          "middleInitial": "V",
+          "lastName": "Chen",
+          "affiliations": [
+            {
+              "name": "BC Mental Health and Substance Use Services, Vancouver, BC, Canada"
+            },
+            {
+              "name": "Faculty of Science, University of British Columbia, Vancouver, BC, Canada"
+            }
+          ]
+        },
+        {
+          "fullName": "Meighen Roes",
+          "firstName": "Meighen",
+          "middleInitial": "",
+          "lastName": "Roes",
+          "affiliations": [
+            {
+              "name": "BC Mental Health and Substance Use Services, Vancouver, BC, Canada"
+            },
+            {
+              "name": "Department of Psychology, University of British Columbia, Vancouver, BC, Canada"
+            }
+          ]
+        },
+        {
+          "fullName": "Abhijit Chinchani",
+          "firstName": "Abhijit",
+          "middleInitial": "",
+          "lastName": "Chinchani",
+          "affiliations": [
+            {
+              "name": "BC Mental Health and Substance Use Services, Vancouver, BC, Canada"
+            },
+            {
+              "name": "Department of Psychiatry, University of British Columbia, Vancouver, BC, Canada"
+            }
+          ]
+        },
+        {
+          "fullName": "Chantal Percival",
+          "firstName": "Chantal",
+          "middleInitial": "",
+          "lastName": "Percival",
+          "affiliations": [
+            {
+              "name": "BC Mental Health and Substance Use Services, Vancouver, BC, Canada"
+            },
+            {
+              "name": "Department of Psychiatry, University of British Columbia, Vancouver, BC, Canada"
+            }
+          ]
+        },
+        {
+          "fullName": "Jessica Khangura",
+          "firstName": "Jessica",
+          "middleInitial": "",
+          "lastName": "Khangura",
+          "affiliations": [
+            {
+              "name": "BC Mental Health and Substance Use Services, Vancouver, BC, Canada"
+            },
+            {
+              "name": "Department of Psychiatry, University of British Columbia, Vancouver, BC, Canada"
+            }
+          ]
+        },
+        {
+          "fullName": "Hafsa Zahid",
+          "firstName": "Hafsa",
+          "middleInitial": "",
+          "lastName": "Zahid",
+          "affiliations": [
+            {
+              "name": "Institute of Biomedical Engineering, University of Toronto, Toronto, ON, Canada"
+            }
+          ]
+        },
+        {
+          "fullName": "Aly Moscovitz",
+          "firstName": "Aly",
+          "middleInitial": "",
+          "lastName": "Moscovitz",
+          "affiliations": [
+            {
+              "name": "BC Mental Health and Substance Use Services, Vancouver, BC, Canada"
+            },
+            {
+              "name": "Department of Psychiatry, University of British Columbia, Vancouver, BC, Canada"
+            }
+          ]
+        },
+        {
+          "fullName": "Leonardo Arreaza",
+          "firstName": "Leonardo",
+          "middleInitial": "",
+          "lastName": "Arreaza",
+          "affiliations": [
+            {
+              "name": "BC Mental Health and Substance Use Services, Vancouver, BC, Canada"
+            },
+            {
+              "name": "Department of Psychiatry, University of British Columbia, Vancouver, BC, Canada"
+            }
+          ]
+        },
+        {
+          "fullName": "Charlotte Win",
+          "firstName": "Charlotte",
+          "middleInitial": "",
+          "lastName": "Wun",
+          "affiliations": [
+            {
+              "name": "BC Mental Health and Substance Use Services, Vancouver, BC, Canada"
+            },
+            {
+              "name": "Department of Psychiatry, University of British Columbia, Vancouver, BC, Canada"
+            }
+          ]
+        },
+        {
+          "fullName": "Nicole Sanford",
+          "firstName": "Nicole",
+          "middleInitial": "",
+          "lastName": "Sanford",
+          "affiliations": [
+            {
+              "name": "Department of Psychiatry, University of British Columbia, Vancouver, BC, Canada"
+            }
+          ]
+        },
+        {
+          "fullName": "Ryan Balzan",
+          "firstName": "Ryan",
+          "middleInitial": "",
+          "lastName": "Balzan",
+          "affiliations": [
+            {
+              "name": "College of Education, Psychology & Social Work, Flinders University, Adelaide, SA, Australia"
+            }
+          ]
+        },
+        {
+          "fullName": "Steffen Moritz",
+          "firstName": "Steffen",
+          "middleInitial": "",
+          "lastName": "Moritz",
+          "affiliations": [
+            {
+              "name": "Department of Psychiatry and Psychotherapy, University Medical Center Hamburg-Eppendorf, Hamburg, Germany"
+            }
+          ]
+        },
+        {
+          "fullName": "Mahesh Menon",
+          "firstName": "Mahesh",
+          "middleInitial": "",
+          "lastName": "Menon",
+          "affiliations": [
+            {
+              "name": "Department of Psychiatry, University of British Columbia, Vancouver, BC, Canada"
+            }
+          ]
+        },
+        {
+          "fullName": "Todd S Woodward",
+          "firstName": "Todd",
+          "middleInitial": "S",
+          "lastName": "Woodward",
+          "affiliations": [
+            {
+              "name": "BC Mental Health and Substance Use Services, Vancouver, BC, Canada"
+            },
+            {
+              "name": "Department of Psychiatry, University of British Columbia, Vancouver, BC, Canada"
+            }
+          ]
+        }
+      ],
+      "dates": [
+        {
+          "date": "2022-04-08 00:00:00",
+          "type": {
+            "value": "version of record"
+          }
+        }
+      ],
+      "identifier": {
+        "identifier": "https://doi.org/10.1016/j.pscychresns.2022.111472",
+        "identifierSource": "DOI"
+      }
+    }
+  ],
+  "isAbout": [
+    {
+      "name": "Homo sapiens",
+      "identifier": {
+        "identifier": "https://www.ncbi.nlm.nih.gov/taxonomy/9606",
+        "identifierSource": "NCBI Taxonomy Database"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "value": "cognitive bias"
+    },
+    {
+      "value": "hypersalience"
+    },
+    {
+      "value": "evidence-hypothesis matches"
+    },
+    {
+      "value": "fish"
+    },
+    {
+      "value": "fmri"
+    },
+    {
+      "value": "eeg"
+    }
+  ],
+  "extraProperties": [
+    {
+      "category": "subjects",
+      "values": [
+        {
+          "value": "N/A"
+        }
+      ]
+    },
+    {
+      "category": "files",
+      "values": [
+        {
+          "value": "99"
+        }
+      ]
+    },
+    {
+      "category": "CONP_status",
+      "values": [
+        {
+          "value": "Canadian"
+        }
+      ]
+    },
+    {
+      "category": "origin_institution",
+      "values": [
+        {
+          "value": "University of British Columbia"
+        }
+      ]
+    },
+    {
+      "category": "origin_city",
+      "values": [
+        {
+          "value": "Vancouver"
+        }
+      ]
+    },
+    {
+      "category": "origin_province",
+      "values": [
+        {
+          "value": "British Columbia"
+        }
+      ]
+    },
+    {
+      "category": "origin_country",
+      "values": [
+        {
+          "value": "Canada"
+        }
+      ]
+    },
+    {
+      "category": "logo",
+      "values": [
+        {
+          "value": "logo.bmp"
+        }
+      ]
+    },
+    {
+      "category": "contact",
+      "values": [
+        {
+          "value": "Katie M. Lavigne, katie.lavigne@mcgill.ca"
+        }
+      ]
+    },
+    {
+      "category": "experimentFunctionAssessed",
+      "values": [
+        {
+          "value": "Cognitive"
+        }
+      ]
+    },
+    {
+      "category": "experimentLanguages",
+      "values": [
+        {
+          "value": "English"
+        }
+      ]
+    },
+    {
+      "category": "experimentValidationPopulations",
+      "values": [
+        {
+          "value": "Adult"
+        },
+        {
+          "value": "Healthy"
+        },
+        {
+          "value": "Disease"
+        }
+      ]
+    },
+    {
+      "category": "experimentAccessibility",
+      "values": [
+        {
+          "value": "Hearing impairment"
+        }
+      ]
+    },
+    {
+      "category": "experimentModalities",
+      "values": [
+        {
+          "value": "fMRI"
+        },
+        {
+          "value": "EEG"
+        },
+        {
+          "value": "Behavioural"
+        }
+      ]
+    },
+    {
+      "category": "experimentRequiredDevices",
+      "values": [
+        {
+          "value": "Computer"
+        },
+        {
+          "value": "Laptop"
+        }
+      ]
+    },
+    {
+      "category": "experimentRequiredSoftware",
+      "values": [
+        {
+          "value": "NBS Presentation version 17"
+        }
+      ]
+    },
+    {
+      "category": "experimentStimuli",
+      "values": [
+        {
+          "value": "Image"
+        }
+      ]
+    },
+    {
+      "category": "experimentAdditionalRequirements",
+      "values": [
+        {
+          "value": [
+            [
+              "2-button response box or mouse/keyboard required"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "category": "REB_statement",
+      "values": [
+        {
+          "value": "In submitting this dataset for inclusion, I declare that these data are not derived from human participants."
+        }
+      ]
+    }
+  ]
+}

@@ -1,47 +1,34 @@
-# Probabilistic Reasoning Task
-
-##### tags: `cognitive bias, hypersalience, evidence-hypothesis matches, fish, fmri, eeg`
+# Probabilistic Reasoning
 
 Probabilistic reasoning task assessing jumping to conclusions using the fish paradigm.
 
-<p align="center">
-<img src = "https://github.com/katielavigne/probabilistic-reasoning-task/blob/main/stims/FISHscreenshot.bmp" width="30%" height="30%"/>
-</p>
+**Publication:** Functional brain networks underlying probabilistic reasoning and delusions in schizophrenia
 
-**Publication:**
+**Experiment DOI:** https://doi.org/10.17605/OSF.IO/4DGBY
 
-Fouladirad et al. (2022) Functional brain networks underlying probabilistic reasoning and delusions in schizophrenia. *Psy Res: Neuroimaging, 323*, 111472. doi: [https://doi.org/10.1016/j.pscychresns.2022.111472](https://doi.org/10.1016/j.pscychresns.2022.111472)
-
-
-**Function(s) assessed:** cognitive bias
+**Functions assessed:** Cognitive
 
 ## Features
-- [x] Repeatability
-- [ ] Multilingual
-- [ ] Validated
-- [x] Accessibility
-- [x] Cross-platform
-- [ ] Cross-device
-- [ ] Cross-species
-
-**Alternate Forms:** randomized stimuli
 
 **Languages:** English
 
-**Validation:** not available
+**Validation:**
+  
+  * Populations: Adult, Healthy, Disease
 
-**Accessibility:** colourblind-friendly
+**Accessibility:** Hearing impairment
 
-**Platforms:** fMRI, EEG, offline
+**Modalities:** fMRI, EEG, Behavioural
 
-**Devices:** PC
+**Devices:** Computer, Laptop
 
-**Species:** human
+**Species:** Homo sapiens
 
 ## Development
-**Software:** NBS Presentation (version 17)
 
-**Requirements:** two-button response device
+**Software:** NBS Presentation version 17
+
+**Requirements:** 2-button response box or mouse/keyboard required
 
 ## Administration
 
@@ -57,9 +44,23 @@ Log files are output to calculate event timing.
 
 ## Scoring
 
-- Accuracy
-- Reaction time
+- accuracy & correct responses (per condition)
+- reaction time (per condition)
 
-## Contributors
+## License and Attribution
 
-Jen Whitman, Christine Tipper, Katie Lavigne, Todd Woodward
+**License**
+
+This project is distributed under two distinct licenses:
+
+Source Code: The source code of this project is distributed under the Academic Public License. This license allows for academic use and modification of the code but is not intended for commercial use.
+
+Documentation: The documentation of this project, including but not limited to README files, wikis, and help files, is distributed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0). This license allows others to remix, adapt, and build upon our work non-commercially, as long as they credit the author and license their new creations under the identical terms.
+
+Please read the LICENSE_code and LICENSE_doc files for the specific terms of these licenses.
+
+**Attribution**
+
+If you use this task in your work, please cite it as indicated on the Open Science Framework, e.g., (in APA format): 
+
+Whitman, J. C., Lavigne, K. M., & Woodward, T. (2024, August 1). FISH Probabilistic Reasoning Task. https://doi.org/10.17605/OSF.IO/4DGBY
